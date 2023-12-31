@@ -1,0 +1,55 @@
+{% extends "./core/admin/base.html" %}
+{% block content %}
+<div class="container pt-3">
+    {% if request.args.get('message') %}
+      {% if request.args.get('message') == 'update' %}
+        <div class="alert alert-info" role="alert">
+          Cập nhật thành công Danh mục
+        </div>
+      {% elif request.args.get('message') == 'create'  %}
+        <div class="alert alert-success" role="alert">
+          Thêm thành công Danh mục
+        </div>
+      {% elif request.args.get('message') == 'delete'  %}
+        <div class="alert alert-danger" role="alert">
+          Xóa thành công Danh mục
+        </div>
+      {% endif %}
+    {% endif %}
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Feature</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if categories %}
+            {% for data in categories %}
+              <tr>
+                <td>{{data.id}}</td>
+                <td>{{data.name}}</td>
+                <td>
+                  <img class="img-thumbnail" style="max-width: 50px;" src="{{ url_for('static', filename='uploads/' + data.image) }}" alt="Category Image">
+                </td>
+                {% if data.feature == 1 %}
+                  <td>Nổi bật</td>
+                {% else %}
+                  <td>Thường</td>
+                {% endif %}
+                <td>
+                  <form method="POST" action="{{url_for('routes.delete_category',category_id=data.id)}}">
+                    <a href="{{url_for('routes.edit_category_view',category_id=data.id)}}" class="btn btn-info">Edit</a>
+                    <button class="btn btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "./core/admin/base.html" %}
+{% block content %}
+<div class="container pt-3">
+  <div class="row">
+      <div class="col-md-8">
+          <form method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Category name</label>
+                  <input type="text" name="name" class="form-control" value="{{category.name}}" required>
+                </div>
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">Category Image</label>
+                  <input type="file" name="image" class="form-control">
+                </div>
+                <div class="form-check mt-2 mb-2">
+                  <input type="checkbox" name="feature" class="form-check-input" {% if category.feature == 1 %}checked{% endif %}   id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Feature</label>
+              </div>
+              <button type="submit" class="btn btn-primary mt-3">Create</button>
+          </form>
+        </div>
+        <div class="col-md-4">
+            <img class="img-fluid img-thumbnail" src="https://bcp.cdnchinhphu.vn/334894974524682240/2022/4/29/son-tung-mtp-08110778-1651217357607701319631.jpg" alt="Mô tả hình ảnh">   
+        </div>
+    </div>
+</div>
+{% endblock %}

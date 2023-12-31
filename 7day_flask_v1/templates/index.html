@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block title %}Index page{% endblock title %}
+{% block content %}
+
+<!-- Close Header -->
+
+<!-- Modal -->
+<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="w-100 pt-1 mb-5 text-right">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" method="get" class="modal-content modal-body border-0 p-0">
+            <div class="input-group mb-2">
+                <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                <button type="submit" class="input-group-text bg-success text-light">
+                    <i class="fa fa-fw fa-search text-white"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Start Banner Hero -->
+<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="{{ url_for('static', filename='img/logo_slide1.png') }}" alt="Ảnh sản phẩm">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left align-self-center">
+                            <h1 class="h1 text-success"><b>Esmart</b> Thương mại điện tử</h1>
+                            <p>
+                                Smartphone là một trong những thiết bị công nghệ phổ biến và không thể thiếu trong cuộc sống hiện đại.
+                                 Được trang bị nhiều tính năng và khả năng kết nối, smartphone đã trở thành một trợ thủ đắc lực cho công việc, giải trí và giao tiếp hàng ngày.
+                                <a style="text-decoration: none;" class="text-success" href="#" target="_blank">Esmart Shop</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="{{ url_for('static', filename='img/logo_slide2.png') }}" alt="Ảnh sản phẩm">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left">
+                            <h1 class="h1 text-success">Laptop thế hệ mới</h1>
+                            <p>
+                                Laptop thế hệ mới được trang bị các bộ vi xử lý tiên tiến như Intel Core thế hệ mới nhất hoặc chip Apple Silicon,
+                                 cung cấp hiệu suất xử lý cao và khả năng đa nhiệm tốt. Bạn có thể thực hiện các tác vụ nặng như xử lý đồ họa,
+                                  chỉnh sửa video và chơi game mượt mà trên laptop này
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="{{ url_for('static', filename='img/logo_slide3.png') }}" alt="Ảnh sản phẩm">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left">
+                            <h1 class="h1 text-success">Máy tính bảng thông minh</h1>
+                            <p>
+                                Máy tính bảng thông minh là một thiết bị di động đa năng,
+                                 kết hợp giữa tính di động của điện thoại thông minh và khả năng hiển thị lớn của máy tính.
+                                  Với màn hình rộng và cảm ứng, máy tính bảng thông minh mang đến trải nghiệm sử dụng đa phương tiện 
+                                  và tiện ích cho người dùng
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+        <i class="fas fa-chevron-left"></i>
+    </a>
+    <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+        <i class="fas fa-chevron-right"></i>
+    </a>
+</div>
+<!-- End Banner Hero -->
+
+
+<!-- Start Categories of The Month -->
+<section class="container py-5">
+    <div class="row text-center pt-3">
+        <div class="col-lg-6 m-auto">
+            <h1 class="h1">Danh mục nổi bật của tháng</h1>
+            <p>Dưới đây là những hạng mục nhận được rất nhiều sự quan tâm của khách hàng</p>
+        </div>
+    </div>
+    <div class="row">
+        {% if cate_of_the_month|length > 0 %}
+            {% for data in cate_of_the_month %}
+            <div class="col-12 col-md-4 p-5 mt-3">
+                <a href="{{url_for('routes.view_shop_category',category_id=data.id)}}">
+                    <img class="rounded-circle img-fluid border"
+                    src="{{ url_for('static', filename='uploads/' + data.image) }}" alt="Ảnh sản phẩm">
+                </a>
+                <h5 class="text-center mt-3 mb-3">{{data.name}}</h5>
+                <p class="text-center"><a class="btn btn-success" href="{{url_for('routes.view_shop_category',category_id=data.id)}}">Go Shop</a></p>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>
+<!-- End Categories of The Month -->
+
+
+<!-- Start Featured Product -->
+<section class="bg-light">
+    <div class="container py-5">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">Sản phẩm nổi bật</h1>
+                <p>Chất lượng không phải là kết quả ngẫu nhiên mà là kết quả của sự chú ý tỉ mỉ đến từng chi tiết,
+                     không ngừng theo đuổi sự xuất sắc và cam kết kiên định để mang lại sản phẩm tốt nhất.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+             {% if feature_products %}
+                {% for data in  feature_products %}
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="{{url_for('routes.detail_product',product_id=data.id)}}">
+                            <img class="card-img-top" src="{{ url_for('static', filename='uploads/' + data.image) }}" alt="Ảnh sản phẩm">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li class="text-muted text-right">{{data.price}} VND</li>
+                            </ul>
+                            <a href="{{url_for('routes.detail_product',product_id=data.id)}}" style="overflow: hidden; text-overflow: ellipsis;" class="h2 text-decoration-none text-dark">{{data.name}}</a>
+                            <p class="card-text mt-2" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{data.description}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!-- End Featured Product -->
+
+
+{% endblock content %}

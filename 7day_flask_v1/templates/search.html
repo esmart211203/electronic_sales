@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+<style>
+    .card {
+        width: 300px;
+        height: 500px;
+    }
+
+</style>
+{% block content %}
+<div class="container-fluid">
+    <div class="alert alert-dark text-center mt-3" style="color: #FFF; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);" role="alert">
+        Results for {{keyword}}
+      </div>
+    <div class="row mt-2">
+        {% if products %}
+        {% for data in products %}
+        <div class="col-md-3">
+            <div class="card mb-4 product-wap rounded-0">
+                <!-- Nội dung card -->
+                <div class="card rounded-0">
+                    <img class="card-img rounded-0 img-fluid" src="{{ url_for('static', filename='uploads/' + data.image) }}" 
+                    alt="Ảnh sản phẩm" style="width: 250px; height: 250px;object-fit: contain;">
+                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a class="btn btn-success text-white mt-2" href="{{url_for('routes.detail_product',product_id=data.id)}}"><i class="far fa-eye"></i></a>
+                            </li>
+                            <li>
+                                <a class="btn btn-success text-white mt-2"
+                                    href="{{url_for('routes.add_to_cart',product_id=data.id)}}"><i class="fas fa-cart-plus"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a href="shop-single.html" class="h3 text-decoration-none">{{data.name}}</a>
+                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                        {{data.category.get_name()}}
+                    </ul>
+                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                        <li>
+                            <i class="text-warning fa fa-star"></i>
+                            <i class="text-warning fa fa-star"></i>
+                            <i class="text-warning fa fa-star"></i>
+                            <i class="text-warning fa fa-star"></i>
+                            <i class="text-warning fa fa-star"></i>
+                        </li>
+                    </ul>
+                    <p class="text-center mb-0">{{data.price}} VND</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="no-results bg-light d-flex justify-content-center align-items-center" style="height: 75vh; border-radius: 5px;">
+            <p style="font-size: 24px;">No results found.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

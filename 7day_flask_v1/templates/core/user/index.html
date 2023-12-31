@@ -1,0 +1,55 @@
+{% extends "./core/admin/base.html" %}
+{% block content %}
+<div class="container pt-3">
+  {% if request.args.get('message') %}
+    {% if request.args.get('message') == 'update' %}
+      <div class="alert alert-info" role="alert">
+        Cập nhật thành công người dùng
+      </div>
+    {% elif request.args.get('message') == 'create'  %}
+      <div class="alert alert-success" role="alert">
+        Thêm thành công người dùng
+      </div>
+    {% elif request.args.get('message') == 'delete'  %}
+      <div class="alert alert-danger" role="alert">
+        Xóa thành công người dùng
+      </div>
+    {% endif %}
+  {% endif %}
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if users %}
+            {% for data in users %}
+            <tr>
+              <th scope="row">{{data.id}}</th>
+              <td>{{data.email}}</td>
+              <td>{{data.phone}}</td>
+              <td>
+                {% if data.role == 1 %}
+                <span class="badge badge-primary">Quản trị</span>
+                {% else %}
+                <span class="badge badge-secondary">Người dùng</span>
+                {% endif %}
+              </td>
+              <td>
+                <form method="POST" action="{{url_for('routes.delete_user',user_id=data.id)}}">
+                  <a href="{{url_for('routes.edit_user_view',user_id=data.id)}}" class="btn btn-info">Edit</a>
+                  <button class="btn btn-danger">Delete</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

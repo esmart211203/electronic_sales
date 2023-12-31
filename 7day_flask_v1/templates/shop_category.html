@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% block content %}
+    <!-- Start Content -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- sidebar category -->
+            <div class="col-lg-3">
+                <h1 class="h2 pb-4">DANH MỤC</h1>
+                <ul class="list-unstyled templatemo-accordion">
+                    {% if categories %}
+                        {% for data in categories %}
+                            <li class="pb-3">
+                                <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="{{url_for('routes.view_shop_category',category_id=data.id)}}">
+                                    {{data.name}}
+                                    <i class="fa-solid fa-circle-chevron-right"></i>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="col-lg-9">
+                <!-- navbar -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-inline shop-top-menu pb-3 pt-1">
+                            <li class="list-inline-item">
+                                <a class="h3 text-dark text-decoration-none mr-3" href="#">Danh mục: {{category.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 pb-4">
+                        <div class="d-flex">
+                            <select class="form-control">
+                                <option>Featured</option>
+                                <option>A to Z</option>
+                                <option>Item</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product by category -->
+                <div class="row">
+                    {% if products %}
+                    {% for data in products %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="{{ url_for('static', filename='uploads/' + data.image) }}"
+                                    alt="Ảnh sản phẩm" style="object-fit: contain;height: 300px;">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a class="btn btn-success text-white mt-2" href="{{url_for('routes.detail_product',product_id=data.id)}}"><i class="far fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-success text-white mt-2"
+                                                href="{{url_for('routes.add_to_cart',product_id=data.id)}}"
+                                                ><i class="fas fa-cart-plus"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="{{url_for('routes.detail_product',product_id=data.id)}}" class="h3 text-decoration-none">{{data.name}}</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>{{data.category.get_name()}}</li>
+                                    </ul>
+                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                        </li>
+                                    </ul>
+                                    <p class="text-center mb-0">{{data.price}} VND</p>
+                                </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- End Content -->
+
+    <!-- Start Brands -->
+    <section class="bg-light py-5">
+        <div class="container my-4">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">Thương hiệu</h1>
+                    <p>
+                        Các thương hiệu sản phẩm đáng chú ý
+                    </p>
+                </div>
+                <div class="col-lg-9 m-auto tempaltemo-carousel">
+                    <div class="row d-flex flex-row">
+                        <!--Controls-->
+                        <div class="col-1 align-self-center">
+                            <a class="h1" href="#multi-item-example" role="button" data-bs-slide="prev">
+                                <i class="text-light fas fa-chevron-left"></i>
+                            </a>
+                        </div>
+                        <!--End Controls-->
+
+                        <!--Carousel Wrapper-->
+                        <div class="col">
+                            <div class="carousel slide carousel-multi-item pt-2 pt-md-0" id="multi-item-example" data-bs-ride="carousel">
+                                <!--Slides-->
+                                <div class="carousel-inner product-links-wap" role="listbox">
+                                    <!--First slide-->
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            {% if manufactures %}
+                                                {% for data in manufactures %}
+                                                <div class="col-3 p-md-5">
+                                                    <a href="#">
+                                                        <img class="img-fluid brand-img"
+                                                        src="{{ url_for('static', filename='uploads/' + data.image) }}" alt="Brand Logo">
+                                                    </a>
+                                                </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <!--End First slide-->
+                                </div>
+                                <!--End Slides-->
+                            </div>
+                        </div>
+                        <!--End Carousel Wrapper-->
+
+                        <!--Controls-->
+                        <div class="col-1 align-self-center">
+                            <a class="h1" href="#multi-item-example" role="button" data-bs-slide="next">
+                                <i class="text-light fas fa-chevron-right"></i>
+                            </a>
+                        </div>
+                        <!--End Controls-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Brands-->
+{% endblock content %}
